@@ -7,7 +7,7 @@ import Temperature from "../components/Temperature";
 function CityDetail({ id, onBack }) {
   // const [data, setData] = React.useState([]);
   const [ciudad, setCiudad] = React.useState();
-  
+
   React.useEffect(() => {
     // if (navigator.geolocation) {
     //   navigator.geolocation.getCurrentPosition((pos) => {
@@ -15,7 +15,7 @@ function CityDetail({ id, onBack }) {
     //   });
     // }
     fetchID(id, setCiudad);
-  }, [id, setCiudad]);  
+  }, [id, setCiudad]);
 
   function dameElNombreLisa(code) {
     let regionNames = new Intl.DisplayNames(["en"], { type: "region" });
@@ -26,7 +26,7 @@ function CityDetail({ id, onBack }) {
   //   if(ctz === undefined) return false;
   //   else if (ctz === ltz) return 0;
   //   else return Math.abs((ctz - ltz));
-  // }  
+  // }
 
   function devuelveBien(unixtime) {
     let date = new Date(unixtime * 1000);
@@ -36,26 +36,26 @@ function CityDetail({ id, onBack }) {
     minutes = minutes < 10 ? "0" + minutes : minutes;
     let formattedTime = hours + ":" + minutes.substr(-2);
     return formattedTime;
-  }  
-  
+  }
+
   function devuelveTimeZone(tz) {
     let timezone = tz / 3600;
     let negativo = false;
     if (timezone < 0) {
       negativo = true;
-    }  
+    }
     if (negativo === false) {
       if (timezone < 10 && timezone >= 0) {
         timezone = "+0" + timezone;
-      }  
+      }
     } else {
       timezone = -timezone;
       if (timezone < 10 && timezone >= 0) {
         timezone = "-0" + timezone;
-      }  
-    }  
+      }
+    }
     return timezone + ":00";
-  }  
+  }
 
   function orientacionViento(d) {
     if ((d >= 0 && d < 22.5) || (d >= 337.5 && d < 360)) return "North";
@@ -66,8 +66,7 @@ function CityDetail({ id, onBack }) {
     else if (d >= 202.5 && d < 247.5) return "(South-West)";
     else if (d >= 247.5 && d < 292.5) return "(West)";
     else if (d >= 292.5 && d < 337.5) return "(North-West)";
-  }  
-  
+  }
 
   return (
     <>
@@ -82,13 +81,12 @@ function CityDetail({ id, onBack }) {
             <div className={a.nombreCiudad}>{ciudad.name}</div>
             <span className={a.pais}>
               <span className={a.paisito}>
-                <div>Country: {dameElNombreLisa(ciudad.country)}</div>
+                <div className={a.paisito_pais}>
+                  Country: {dameElNombreLisa(ciudad.country)}
+                </div>
                 <div>Country Code: {ciudad.country}</div>
               </span>
-              <span className={a.pequetz}>
-                <div>Time Zone: </div>
-                <div>{devuelveTimeZone(ciudad.timezone)}</div>
-              </span>
+
               <span className={a.peque}>
                 <div>Latitude: {ciudad.latitud}</div>
                 <div>Longitude: {ciudad.longitud}</div>
@@ -128,25 +126,29 @@ function CityDetail({ id, onBack }) {
             <div className={a.riseset}>
               <span className={a.centratelokitasun}>
                 <span className={a.centratelokita}>
-                <div>Sunrise (LTZ): </div>
-                {/* <div>{console.log(ctz)}</div> */}
-                {/* <div>{devuelveBien(ciudad.sunrise+convertTZ(data[0].timezone,ciudad.timezone))}</div> */}
+                  <div>Sunrise (LTZ): </div>
+                  {/* <div>{console.log(ctz)}</div> */}
+                  {/* <div>{devuelveBien(ciudad.sunrise+convertTZ(data[0].timezone,ciudad.timezone))}</div> */}
                 </span>
                 <span className={a.centratelokita}>
-                <div>Sunset (LTZ): </div>
-                {/* <div>{devuelveBien(ciudad.sunset+convertTZ(data[0].timezone,ciudad.timezone))}</div> */}
+                  <div>Sunset (LTZ): </div>
+                  {/* <div>{devuelveBien(ciudad.sunset+convertTZ(data[0].timezone,ciudad.timezone))}</div> */}
                 </span>
               </span>
             </div>
+            <span className={a.pequetz}>
+              <div>Time Zone: </div>
+              <div>{devuelveTimeZone(ciudad.timezone)}</div>
+            </span>
             <div className={a.riseset2}>
-            <span className={a.centratelokitasun}>
+              <span className={a.centratelokitasun}>
                 <span className={a.centratelokita}>
-                <div>Sunrise (CTZ): </div>
-                <div>{devuelveBien(ciudad.sunrise)}</div>
+                  <div>Sunrise (CTZ): </div>
+                  <div>{devuelveBien(ciudad.sunrise)}</div>
                 </span>
                 <span className={a.centratelokita}>
-                <div>Sunset (CTZ): </div>
-                <div>{devuelveBien(ciudad.sunset)}</div>
+                  <div>Sunset (CTZ): </div>
+                  <div>{devuelveBien(ciudad.sunset)}</div>
                 </span>
               </span>
             </div>
